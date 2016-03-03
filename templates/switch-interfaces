@@ -1,8 +1,14 @@
-{% for interface in interfaces %}interface {{ interface.ifname }} {{ interface.ifnumber }}
-    {% if interface.vlanid == "trunk" %}switchport mode trunk
+{% extends "switch-cfg" %}
+{%- block b_interface -%}
+{% for interface in interfaces %}
+interface {{ interface.ifname }} {{ interface.ifnumber }}
+    {%- if interface.vlanid == "trunk" %}
+    switchport mode trunk
     description {{ interface.description }}
-   {% else %}switchport mode access
+   {% else %}
+    switchport mode access
     switchport access vlan {{ interface.vlanid }}
     description {{ interface.description }}
     {% endif %}
-{% endfor %}
+{%- endfor -%}
+{%- endblock -%}

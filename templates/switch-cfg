@@ -1,0 +1,4 @@
+!interfaces configuration
+{%- block b_interface -%}
+{%- endblock -%}
+!
