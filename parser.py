@@ -6,20 +6,31 @@ wb = load_workbook('input/L2.xlsx')
 ws=wb['Phiscal layout']
 interfaces=[]
 
+#Set columns information parameters
+#Colomun id interface name
+c_ifname=1
+#Colomun id interface number id
+c_ifnumber=2
+#Colomun id interface description
+c_desc=4
+#Colomun id vlan id
+c_vlanid=3
+
+
 for row in ws.rows:
-    if (row[2].value==u"trunk"):
+    if (row[c_vlanid].value==u"trunk"):
         interfaces.append({
-        "ifname" : "fastethernet",
-        "vlanid":row[2].value,
-        "ifnumber":row[1].value,
-        "description" :row[3].value
+        "ifname" : row[c_ifname].value,
+        "vlanid":row[c_vlanid].value,
+        "ifnumber":row[c_ifnumber].value,
+        "description" :row[c_desc].value
             })
-    elif(isinstance(row[2].value,float)):
+    elif(isinstance(row[c_vlanid].value,float)):
         interfaces.append({
-        "ifname" : "fastethernet",
-        "vlanid":int(row[2].value),
-        "ifnumber":row[1].value,
-        "description" :row[3].value
+        "ifname" : row[c_ifname].value,
+        "vlanid":int(row[c_vlanid].value),
+        "ifnumber":row[c_ifnumber].value,
+        "description" :row[c_desc].value
     })
 
 
