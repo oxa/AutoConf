@@ -2,6 +2,7 @@ import jinja2
 from openpyxl import Workbook,load_workbook
 
 wb = Workbook()
+#Load the excel configuration file
 wb = load_workbook('input/L2 (1).xlsx')
 #Set columns information parameters
 #Colomun id interface name
