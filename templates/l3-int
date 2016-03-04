@@ -1,2 +1,2 @@
-int vlan {{ interface.vlanid }}
+interface {{ interface.ifname }} {{ interface.ifnumber }}
     ip address {{ interface.ipaddr }} {{ interface.netmask }}

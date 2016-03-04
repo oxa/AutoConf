@@ -1,0 +1,6 @@
+
+!L2 configuration
+{% include 'switch-interfaces' %}
+
+!L3 configuration
+{% include 'vlan-int' %}

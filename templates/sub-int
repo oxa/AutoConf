@@ -1,3 +1,5 @@
-interface {{ interface.ifname }} {{ interface.ifnumber }}.{{ interface.vlanid }}
+interface {{ interface.ifname }} {{ interface.ifnumber }}.{{ interface.subint }}
+    {%- block interface_ip %}
     encapsulation dot1q {{ interface.vlanid }}
     ip address {{ interface.ipaddr }} {{ interface.netmask }}
+    {%- endblock interface_ip %}
