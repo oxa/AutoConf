@@ -13,6 +13,7 @@ l3wb = Workbook()
 #Load the excel configuration file
 l2wb = load_workbook('input/L2 (1).xlsx')
 l3wb = load_workbook('input/L3.xlsx')
+valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 
 #Set columns information parameters
 #Colomun id interface name
@@ -45,16 +46,19 @@ c_vlanid=3
 for l3ws in l3wb :
     l3interfaces=[]
     for row in l3ws.rows:
-        l3interfaces.append({
-        "ifname" : row[0].value,
-        "vlanid":cast(row[2].value,int),
-        "ifnumber":cast(row[1].value,int),
-        "description" :row[7].value,
-        "ipaddr" : row[5].value,
-        "netmask" : row[6].value,
-        "subint" : cast(row[2].value,int),
-        "autoconf": row[3].value
-            })
+        if row[0].value in valid_interface :
+            l3interfaces.append({
+            "ifname" : row[0].value,
+            "vlanid":cast(row[2].value,int),
+            "ifnumber":cast(row[1].value,int),
+            "description" :row[7].value,
+            "ipaddr" : row[5].value,
+            "netmask" : row[6].value,
+            "subint" : cast(row[2].value,int),
+            "autoconf": row[3].value
+                })
+        else:
+            print "Unknown interface type : ",row[0].value
 
 
     templateLoader = jinja2.FileSystemLoader( searchpath="templates" )

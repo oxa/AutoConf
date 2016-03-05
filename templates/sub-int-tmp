@@ -1,10 +1,10 @@
-{%- extends 'sub-int' %}
-    {%- block interface_ip %}
-        {%- if  interface.autoconf is not none %}
-        encapsulation dot1q {{ interface.subint }}
-        ip address {{ interface.autoconf }}{{ interface.subint }}.254 255.255.255.0
+{%- extends 'sub-int' -%}
+{% block interface_ip -%}
+    {%- if  interface.autoconf is not none %}
+    encapsulation dot1q {{ interface.subint }}
+    ip address {{ interface.autoconf }}{{ interface.subint }}.254 255.255.255.0
 {%- else %}
-        {{ super() }}
+    {{ super() }}
 {%- endif %}
-{%- endblock interface_ip  %}
+{% endblock interface_ip  %}
 
