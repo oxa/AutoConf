@@ -32,10 +32,6 @@ subint = "sub int"
 autoconf = "auto-conf information"
 netmask = "netmask"
 
-
-
-
-
 valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
 
@@ -68,7 +64,7 @@ for device in devices_list:
                  "vlanid":row[index_l2.index(vlanid)].value,
                  "ifnumber":cast(row[index_l2.index(ifnumber)].value,int),
                  "description" :row[index_l2.index(description)].value,
-                 "allowedvlans" :str(row[index_l2.index(allowedvlans)].value),
+                 "allowedvlans" :cast(row[index_l2.index(allowedvlans)].value,str),
                  "po":cast(row[index_l2.index(po)].value,int),
                  "po_mode": row[index_l2.index(po_mode)].value
                      })
@@ -78,7 +74,7 @@ for device in devices_list:
                 "vlanid":int(row[index_l2.index(vlanid)].value),
                 "ifnumber":cast(row[index_l2.index(ifnumber)].value,int),
                 "description" :row[index_l2.index(description)].value,
-                "allowedvlans" :str(row[index_l2.index(allowedvlans)].value),
+                "allowedvlans" :cast(row[index_l2.index(allowedvlans)].value,str),
                 "po":cast(row[index_l2.index(po)].value,int),
                 "po_mode": row[index_l2.index(po_mode)].value
                 })
