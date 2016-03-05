@@ -1,5 +1,4 @@
 {%- block b_interface -%}
-{% for interface in l2interfaces %}
 interface {{ interface.ifname }} {{ interface.ifnumber }}
     {%- if interface.vlanid == "trunk" %}
     switchport mode trunk
@@ -9,5 +8,4 @@ interface {{ interface.ifname }} {{ interface.ifnumber }}
     switchport access vlan {{ interface.vlanid }}
     description {{ interface.description }}
     {% endif %}
-{%- endfor -%}
-{%- endblock -%}
+{%- endblock b_interface -%}
