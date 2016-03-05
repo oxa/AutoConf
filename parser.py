@@ -8,41 +8,53 @@ def cast(val, to_type, default=None):
         default=val
         return default
 
-l2wb = Workbook()
-l3wb = Workbook()
-#Load the excel configuration file
-l2wb = load_workbook('input/L2 (1).xlsx')
+# 0. Specify in templates/config the configuration you want for the devices
+
+# 1. Specify the excel configuration file
+l2wb = load_workbook('input/L2.xlsx')
 l3wb = load_workbook('input/L3.xlsx')
+
+# 2. Specify column names if renamed
+ifname = "interface type"
+ifnumber = "interface"
+vlanid = "vlan"
+description = "description"
+ipaddr = "ip address"
+subint = "sub int"
+autoconf = "auto-conf information"
+netmask = "netmask"
+
 valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
-#Set columns information parameters
-#Colomun id interface name
-c_ifname=1
-#Colomun id interface number id
-c_ifnumber=2
-#Colomun id interface description
-c_desc=4
-#Colomun id vlan id
-c_vlanid=3
+l2ws = l2wb.active
+l3ws = l3wb.active
+raw_index_l2= l2ws.rows[0]
+raw_index_l3= l3ws.rows[0]
+index_l2 = []
+index_l3 = []
+for cell in raw_index_l2:
+    index_l2.append(cell.value)
+for cell in raw_index_l3:
+    index_l3.append(cell.value)
 
 for device in devices_list:
     try:
         l2interfaces=[]
         l2ws=l2wb.get_sheet_by_name(device)
         for row in l2ws.rows:
-            if (row[c_vlanid].value==u"trunk"):
+            if (row[index_l2.index(vlanid)].value==u"trunk"):
                  l2interfaces.append({
-                "ifname" : row[c_ifname].value,
-                 "vlanid":row[c_vlanid].value,
-                 "ifnumber":row[c_ifnumber].value,
-                 "description" :row[c_desc].value
+                "ifname" : row[index_l2.index(ifname)].value,
+                 "vlanid":row[index_l2.index(vlanid)].value,
+                 "ifnumber":row[index_l2.index(ifnumber)].value,
+                 "description" :row[index_l2.index(description)].value
                      })
-            elif(isinstance(row[c_vlanid].value,float)):
+            elif(isinstance(row[index_l2.index(vlanid)].value,float)):
                 l2interfaces.append({
-                "ifname" : row[c_ifname].value,
-                "vlanid":int(row[c_vlanid].value),
-                "ifnumber":row[c_ifnumber].value,
-                "description" :row[c_desc].value
+                "ifname" : row[index_l2.index(ifname)].value,
+                "vlanid":int(row[index_l2.index(vlanid)].value),
+                "ifnumber":row[index_l2.index(ifnumber)].value,
+                "description" :row[index_l2.index(description)].value
                 })
     except (KeyError):
             pass
@@ -52,17 +64,17 @@ for device in devices_list:
         for row in l3ws.rows:
             if row[0].value in valid_interface :
                 l3interfaces.append({
-                "ifname" : row[0].value,
-                "vlanid":cast(row[2].value,int),
-                "ifnumber":cast(row[1].value,int),
-                "description" :row[7].value,
-                "ipaddr" : row[5].value,
-                "netmask" : row[6].value,
-                "subint" : cast(row[2].value,int),
-                "autoconf": row[3].value
+                "ifname" : row[index_l3.index(ifname)].value,
+                "vlanid":cast(row[index_l3.index(vlanid)].value,int),
+                "ifnumber":cast(row[index_l3.index(ifnumber)].value,int),
+                "description" :row[index_l3.index(description)].value,
+                "ipaddr" : row[index_l3.index(ipaddr)].value,
+                "netmask" : row[index_l3.index(netmask)].value,
+                "subint" : cast(row[index_l3.index(subint)].value,int),
+                "autoconf": row[index_l3.index(autoconf)].value
                     })
             else:
-                print "Unknown interface type : ",row[0].value
+                print "[Invalid Interface Name] Unknown interface type : ",row[0].value
     except (KeyError):
         pass
 
