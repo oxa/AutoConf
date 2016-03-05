@@ -1,2 +1,6 @@
 interface {{ interface.ifname }} {{ interface.ifnumber }}
     ip address {{ interface.ipaddr }} {{ interface.netmask }}
+    {%- if  interface.description is not none %}
+    description {{ interface.description }}
+    {%- endif %}
+    no shutdown

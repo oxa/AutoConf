@@ -6,5 +6,9 @@
 {%- else %}
     {{ super() }}
 {%- endif %}
+    {%- if  interface.description is not none %}
+    description {{ interface.description }}
+    {%- endif %}
+    no shutdown
 {% endblock interface_ip  %}
 

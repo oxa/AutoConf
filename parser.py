@@ -26,12 +26,14 @@ netmask = "netmask"
 
 valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
+
+index_l2 = []
+index_l3 = []
 l2ws = l2wb.active
 l3ws = l3wb.active
 raw_index_l2= l2ws.rows[0]
 raw_index_l3= l3ws.rows[0]
-index_l2 = []
-index_l3 = []
+
 for cell in raw_index_l2:
     index_l2.append(cell.value)
 for cell in raw_index_l3:
@@ -78,17 +80,11 @@ for device in devices_list:
     except (KeyError):
         pass
 
-
-
-
-
-
     templateLoader = jinja2.FileSystemLoader( searchpath="templates" )
     templateEnv = jinja2.Environment( loader=templateLoader )
     TEMPLATE_FILE = "config"
     template = templateEnv.get_template( TEMPLATE_FILE )
     templateVars={"l2interfaces":l2interfaces,"l3interfaces":l3interfaces}
-    #templateVars={"l3interfaces":l3interfaces}
 
     outputText = template.render( templateVars,trim_blocks=True,lstrip_blocks=True )
     with open("conf/"+device+".cfg", "wb") as fh:
