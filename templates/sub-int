@@ -1,3 +1,0 @@
-interface {{ interface.ifname }} {{ interface.ifnumber }}.{{ interface.vlanid }}
-    encapsulation dot1q {{ interface.vlanid }}
-    ip address {{ interface.ipaddr }} {{ interface.netmask }}

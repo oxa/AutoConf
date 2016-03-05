@@ -1,0 +1,6 @@
+
+!L2 configuration
+{% include 'l2/switch-interfaces' %}
+
+!L3 configuration
+{% include 'l3/l3-cfg' %}
