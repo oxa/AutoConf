@@ -17,14 +17,24 @@ l2wb = load_workbook('input/L2.xlsx')
 l3wb = load_workbook('input/L3.xlsx')
 
 # 2. Specify column names if renamed
+#General
 ifname = "interface type"
 ifnumber = "interface"
 vlanid = "vlan"
 description = "description/name"
+#L2
+allowedvlans="allowed vlans"
+po="channel-group"
+po_mode="mode"
+#L3
 ipaddr = "ip address"
 subint = "sub int"
 autoconf = "auto-conf information"
 netmask = "netmask"
+
+
+
+
 
 valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
@@ -56,15 +66,21 @@ for device in devices_list:
                  l2interfaces.append({
                 "ifname" : row[index_l2.index(ifname)].value,
                  "vlanid":row[index_l2.index(vlanid)].value,
-                 "ifnumber":row[index_l2.index(ifnumber)].value,
-                 "description" :row[index_l2.index(description)].value
+                 "ifnumber":cast(row[index_l2.index(ifnumber)].value,int),
+                 "description" :row[index_l2.index(description)].value,
+                 "allowedvlans" :str(row[index_l2.index(allowedvlans)].value),
+                 "po":cast(row[index_l2.index(po)].value,int),
+                 "po_mode": row[index_l2.index(po_mode)].value
                      })
             elif(isinstance(row[index_l2.index(vlanid)].value,float)):
                 l2interfaces.append({
                 "ifname" : row[index_l2.index(ifname)].value,
                 "vlanid":int(row[index_l2.index(vlanid)].value),
-                "ifnumber":row[index_l2.index(ifnumber)].value,
-                "description" :row[index_l2.index(description)].value
+                "ifnumber":cast(row[index_l2.index(ifnumber)].value,int),
+                "description" :row[index_l2.index(description)].value,
+                "allowedvlans" :str(row[index_l2.index(allowedvlans)].value),
+                "po":cast(row[index_l2.index(po)].value,int),
+                "po_mode": row[index_l2.index(po_mode)].value
                 })
     except (KeyError):
             pass
