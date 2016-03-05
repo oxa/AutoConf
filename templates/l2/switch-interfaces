@@ -1,6 +1,5 @@
-{% extends "switch-cfg" %}
 {%- block b_interface -%}
-{% for interface in interfaces %}
+{% for interface in l2interfaces %}
 interface {{ interface.ifname }} {{ interface.ifnumber }}
     {%- if interface.vlanid == "trunk" %}
     switchport mode trunk

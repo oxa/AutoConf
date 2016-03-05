@@ -1,6 +1,0 @@
-!interfaces L2 configuration
-{%- block b_interface -%}
-{%- endblock -%}
-
-
-

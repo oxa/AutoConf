@@ -1,7 +1,7 @@
 {%- for interface in l3interfaces %}
 {%- if interface.subint is not none %}
-{% include 'sub-int-tmp' %}
+{% include 'l3/sub-int-tmp' %}
 {%- else %}
-{% include 'l3-int' %}
+{% include 'l3/l3-int' %}
 {% endif %}
 {%- endfor %}

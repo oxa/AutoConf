@@ -1,4 +1,4 @@
-{%- extends 'sub-int' -%}
+{%- extends 'l3/sub-int' -%}
 {% block interface_ip -%}
     {%- if  interface.autoconf is not none %}
     encapsulation dot1q {{ interface.subint }}
