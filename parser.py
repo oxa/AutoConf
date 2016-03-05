@@ -1,3 +1,5 @@
+__author__ = "Guillaume Ladhuie"
+
 import jinja2
 from openpyxl import Workbook,load_workbook
 
@@ -18,7 +20,7 @@ l3wb = load_workbook('input/L3.xlsx')
 ifname = "interface type"
 ifnumber = "interface"
 vlanid = "vlan"
-description = "description"
+description = "description/name"
 ipaddr = "ip address"
 subint = "sub int"
 autoconf = "auto-conf information"
@@ -42,9 +44,15 @@ for cell in raw_index_l3:
 for device in devices_list:
     try:
         l2interfaces=[]
+        l2vlans=[]
         l2ws=l2wb.get_sheet_by_name(device)
         for row in l2ws.rows:
-            if (row[index_l2.index(vlanid)].value==u"trunk"):
+            if (row[index_l2.index(ifname)].value==u"vlan"):
+                l2vlans.append({
+                "vlanid":cast(row[index_l2.index(vlanid)].value,int),
+                "name" :row[index_l2.index(description)].value
+                })
+            elif (row[index_l2.index(vlanid)].value==u"trunk"):
                  l2interfaces.append({
                 "ifname" : row[index_l2.index(ifname)].value,
                  "vlanid":row[index_l2.index(vlanid)].value,
@@ -64,7 +72,7 @@ for device in devices_list:
         l3interfaces=[]
         l3ws=l3wb.get_sheet_by_name(device)
         for row in l3ws.rows:
-            if row[0].value in valid_interface :
+            if row[index_l3.index(ifname)].value in valid_interface :
                 l3interfaces.append({
                 "ifname" : row[index_l3.index(ifname)].value,
                 "vlanid":cast(row[index_l3.index(vlanid)].value,int),
@@ -76,7 +84,7 @@ for device in devices_list:
                 "autoconf": row[index_l3.index(autoconf)].value
                     })
             else:
-                print "[Invalid Interface Name] Unknown interface type : ",row[0].value
+                print "[Invalid Interface Name] Unknown interface type : ",row[index_l3.index(ifname)].value
     except (KeyError):
         pass
 
@@ -84,7 +92,7 @@ for device in devices_list:
     templateEnv = jinja2.Environment( loader=templateLoader )
     TEMPLATE_FILE = "config"
     template = templateEnv.get_template( TEMPLATE_FILE )
-    templateVars={"l2interfaces":l2interfaces,"l3interfaces":l3interfaces}
+    templateVars={"l2interfaces":l2interfaces,"l2vlans":l2vlans,"l3interfaces":l3interfaces}
 
     outputText = template.render( templateVars,trim_blocks=True,lstrip_blocks=True )
     with open("conf/"+device+".cfg", "wb") as fh:
