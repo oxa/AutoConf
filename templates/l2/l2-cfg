@@ -1,0 +1,8 @@
+!Interfaces
+{% for interface in l2interfaces %}
+{% include 'l2/switch-interfaces' %}
+{%- endfor %}
+!Vlans database
+{% for vlan in l2vlans %}
+{% include 'l2/l2-vlan' %}
+{%- endfor -%}

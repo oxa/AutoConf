@@ -1,0 +1,6 @@
+vlan {{ vlan.vlanid }}
+    {%- if vlan.name is defined %}
+    name {{ vlan.name }}
+    {%- else %}
+    name VLAN-{{ vlan.vlanid }}
+    {%- endif %}
