@@ -2,8 +2,15 @@ AutoConf
 ========
 
 AutoConf is a Simple Cisco devices configuration generator based on jinja2 templates.
+
 For now only .xlsx templates input are supported. In the following released json will be supported as a valid input source.
 Output fle format is a Cisco .cfg file
+
+AutoConf support :
+* Cisco IOS, IOS-XE and NX-OS
+* IP addressing
+* VLAN / Trunking configuration
+* Port-Channels
 
 ## Installing
 
