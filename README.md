@@ -69,15 +69,18 @@ You have to create one sheet per device. Identical devices must have the same na
 Please refer to the following table for column index description :
 
 Global index
-| .xlsx index | AutoConf | Description |
-|-------------|----------|-------------|
+
+| xlsx index | AutoConf | Description |
+| --- | --- | --- |
 | interface type | ifname | Cisco well known interfaces type |
 | interface | ifnumber | Interface number in Cisco format |
 | vlan | vlanid | Vlan ID |
 | description/name | description | Interface Description or Name |
 
 L2 only index
-| .xlsx index | AutoConf | Description |
+
+| xlsx index | AutoConf | Description |
+| --- | --- | --- |
 | interface type | ifname | Serve also as a Key word for vlan declaration |
 | allowed vlans | allowedvlans | List of allowed vlans |
 | channel-group | po | Channel-Group ID |
@@ -85,7 +88,9 @@ L2 only index
 
 
 L3 only index
-| .xlsx index | AutoConf | Description |
+
+| xlsx index | AutoConf | Description |
+| --- | --- | --- |
 | ip address | ipaddr | Interface IP address |
 | sub int | subint | Sub-Interface ID |
 | netmask | netmask | Network Mask of IP address |
