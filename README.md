@@ -70,7 +70,7 @@ Please refer to the following table for column index description :
 
 Global index
 | .xlsx index | AutoConf | Description |
-|-------------|----------|-------------|
+| --- | --- | --- |
 | interface type | ifname | Cisco well known interfaces type |
 | interface | ifnumber | Interface number in Cisco format |
 | vlan | vlanid | Vlan ID |
