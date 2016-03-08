@@ -19,7 +19,7 @@ l3wb = load_workbook('input/L3.xlsx')
 # 2. Specify column names if renamed
 #General
 ifname = "interface type"
-ifnumber = "interface"
+ifnumber = "interface number"
 vlanid = "vlan"
 description = "description/name"
 #L2
@@ -32,7 +32,7 @@ subint = "sub int"
 autoconf = "auto-conf information"
 netmask = "netmask"
 
-valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
+valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial","ethernet","mgmt","management"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
 
 index_l2 = []

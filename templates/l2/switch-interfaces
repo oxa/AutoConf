@@ -2,7 +2,7 @@ interface {{ interface.ifname }} {{ interface.ifnumber }}
     {%- if interface.vlanid == "trunk" %}
     switchport mode trunk
     {%- if  interface.allowedvlans!="None" %}
-    switchport trunk allowed vlans {{ interface.allowedvlans }}
+    switchport trunk allowed vlans 1,1002-1005,{{ interface.allowedvlans }}
     {%- endif %}
     {%- else %}
     switchport mode access
