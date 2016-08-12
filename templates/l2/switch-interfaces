@@ -1,8 +1,9 @@
 interface {{ interface.ifname }} {{ interface.ifnumber }}
+    {%- if  interface.vlanid is not none %}
     {%- if interface.vlanid == "trunk" %}
     switchport mode trunk
     {%- if  interface.allowedvlans!="None" %}
-    switchport trunk allowed vlans {{ interface.allowedvlans }}
+    switchport trunk allowed vlan {{ interface.allowedvlans }}
     {%- endif %}
     {%- else %}
     switchport mode access
@@ -15,3 +16,8 @@ interface {{ interface.ifname }} {{ interface.ifnumber }}
     {%- set po_mode=interface.po_mode or "on" %}
     channel-group {{ interface.po }} mode {{ po_mode }}
     {%- endif %}
+    {%- if interface.speed is not none  %}
+    speed {{ interface.speed }}
+    {%- endif %}
+    {%- endif %}
+    no shut

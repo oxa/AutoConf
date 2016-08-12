@@ -26,13 +26,14 @@ description = "description/name"
 allowedvlans="allowed vlans"
 po="channel-group"
 po_mode="mode"
+speed="speed"
 #L3
 ipaddr = "ip address"
 subint = "sub int"
 autoconf = "auto-conf information"
 netmask = "netmask"
 
-valid_interface = ["gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
+valid_interface = ["ethernet","gigabitethernet","fastethernet","vlan","port-channel","tengigabitethernet","tunnel","loopback","serial"]
 devices_list= list(set(l2wb.get_sheet_names())|set(l3wb.get_sheet_names()))
 
 index_l2 = []
@@ -66,7 +67,8 @@ for device in devices_list:
                  "description" :row[index_l2.index(description)].value,
                  "allowedvlans" :cast(row[index_l2.index(allowedvlans)].value,str),
                  "po":row[index_l2.index(po)].value,
-                 "po_mode": row[index_l2.index(po_mode)].value
+                 "po_mode": row[index_l2.index(po_mode)].value,
+                 "speed": row[index_l2.index(speed)].value
                      })
     except (KeyError):
             print "No L2 configuration file for device : ",device
